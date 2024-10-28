@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Результат проверки</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% if 'success' in messages[0][0] %}
+                <img src="{{ url_for('static', filename='success.png') }}" alt="Success" />
+            {% else %}
+                <img src="{{ url_for('static', filename='failure.png') }}" alt="Failure" />
+            {% endif %}
+        {% else %}
+            <p>Ошибка: результат не был передан.</p>
+        {% endif %}
+    {% endwith %}
+    <a href="{{ url_for('input_number') }}">Назад</a>
+</body>
+</html>
